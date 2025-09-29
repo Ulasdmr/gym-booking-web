@@ -1,0 +1,32 @@
+<div class="page-wrap">
+  <h2 class="section-title">Rezervasyonlarım</h2>
+
+  <div *ngIf="loading" class="skeleton-grid">
+    <div class="skeleton-row" *ngFor="let x of [1,2,3,4]"></div>
+  </div>
+
+  <div *ngIf="!loading && error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && !error && bookings.length === 0" class="empty">
+    Henüz bir rezervasyonun yok.
+  </div>
+
+  <div class="list" *ngIf="!loading && !error && bookings.length">
+    <div class="row" *ngFor="let b of bookings">
+      <div class="info">
+        <div class="name">{{ b.sessionName || ('Seans #' + b.sessionId) }}</div>
+        <div class="sub">
+          <mat-icon>schedule</mat-icon>
+          <span>{{ b.startTime | date:'short' }} – {{ b.endTime | date:'shortTime' }}</span>
+          <span class="sep">•</span>
+          <mat-icon>location_on</mat-icon>
+          <span>{{ b.gymName || 'Salon' }}</span>
+        </div>
+      </div>
+
+      <button mat-stroked-button class="btn-danger" [disabled]="cancelBusy === b.id" (click)="cancel(b.id)">
+        {{ cancelBusy === b.id ? 'İşleniyor…' : 'İptal Et' }}
+      </button>
+    </div>
+  </div>
+</div>

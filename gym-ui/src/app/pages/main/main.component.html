@@ -1,0 +1,43 @@
+<div class="main-wrap">
+  <h1 class="title">Dashboard</h1>
+  <p class="subtitle">Hızlı erişim için kısayollar</p>
+
+  <div class="grid">
+    <mat-card class="tile">
+      <img mat-card-image src="assets/sessions.jpg" alt="Seanslar" />
+      <mat-card-content>
+        <h3>Seanslar</h3>
+        <p>Uygun seansları görüntüle ve rezervasyon oluştur.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button class="btn" (click)="goto('/sessions')">Seanslara Git</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="tile">
+      <img mat-card-image src="assets/bookings.jpg" alt="Rezervasyonlar" />
+      <mat-card-content>
+        <h3>Rezervasyonlarım</h3>
+        <p>Mevcut rezervasyonlarını yönet ve iptal et.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button class="btn" (click)="goto('/booking')">Rezervasyonlara Git</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="tile" *ngIf="isAdmin">
+      <img mat-card-image src="assets/admin.jpg" alt="Yönetim" />
+      <mat-card-content>
+        <h3>Salon Yönetimi</h3>
+        <p>Admin işlemleri: salon ve seans yönetimi.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button class="btn" (click)="goto('/sessions')">Yönetim Paneli</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="actions">
+    <button mat-stroked-button class="btn-secondary" (click)="logout()">Çıkış Yap</button>
+  </div>
+</div>

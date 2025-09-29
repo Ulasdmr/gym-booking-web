@@ -1,0 +1,33 @@
+<div class="auth-wrap">
+  <!-- LEFT: form -->
+  <div class="left">
+    <h1 class="title">Welcome back!</h1>
+    <p class="subtitle">Enter your credentials to access your account</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+      <mat-form-field appearance="outline" class="w100">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" type="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w100">
+        <mat-label>Şifre</mat-label>
+        <input matInput formControlName="password" type="password" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="btn-primary" type="submit" [disabled]="loading">
+        Giriş
+      </button>
+
+      <div class="signup">
+        Hesabın yok mu?
+        <a routerLink="/auth/register">Kayıt Ol</a>
+      </div>
+
+      <div *ngIf="error" class="error">{{ error }}</div>
+    </form>
+  </div>
+
+  <!-- RIGHT: image -->
+  <div class="right"></div>
+</div>

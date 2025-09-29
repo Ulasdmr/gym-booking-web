@@ -1,0 +1,111 @@
+<div class="page-wrap">
+  <div class="header-row">
+    <h2 class="section-title">Seanslar</h2>
+
+    <div class="actions">
+      <!-- Tür seçimi -->
+      <mat-form-field appearance="outline" class="w-200">
+        <mat-label>Tür</mat-label>
+        <mat-select [(value)]="selectedType">
+          <mat-option *ngFor="let t of sessionTypes" [value]="t">{{ t }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Seçili türle hızlı oluştur -->
+      <button mat-raised-button color="primary"
+              [disabled]="createBusy"
+              class="btn-primary"
+              (click)="createSession(selectedType)">
+        {{ createBusy ? 'Oluşturuluyor…' : ('Oluştur (' + (selectedType || 'SEÇ') + ')') }}
+      </button>
+
+      <!-- ID ile rezervasyon -->
+      <mat-form-field appearance="outline" class="w-140">
+        <mat-label>Session ID</mat-label>
+        <input matInput type="number" [(ngModel)]="byIdsSessionId">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-140">
+        <mat-label>Gym ID</mat-label>
+        <input matInput type="number" [(ngModel)]="byIdsGymId">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-220">
+        <mat-label>Rezervasyon Tarihi</mat-label>
+        <input matInput type="datetime-local" [(ngModel)]="byIdsBooking">
+      </mat-form-field>
+
+      <button mat-raised-button color="accent"
+              class="btn-primary"
+              [disabled]="bookingBusy === -1"
+              (click)="bookByIds()">
+        {{ bookingBusy === -1 ? 'Rezerve ediliyor…' : 'Rezerve Et (ID ile)' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="skeleton-grid" aria-busy="true">
+    <div class="skeleton-card" *ngFor="let x of [1,2,3,4,5,6]"></div>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="!loading && error" class="error">{{ error }}</div>
+
+  <!-- Empty -->
+  <div *ngIf="!loading && !error && sessions.length === 0" class="empty">
+    Şu an listelenecek seans yok.
+  </div>
+
+  <!-- List -->
+  <div class="grid" *ngIf="!loading && !error && sessions.length > 0">
+    <div class="card" *ngFor="let s of sessions">
+      <div class="head">
+        <div class="title-wrap">
+          <h3>{{ s.title || 'Seans' }}</h3>
+          <span class="type-badge" *ngIf="s.type">{{ s.type }}</span>
+        </div>
+
+        <!-- sadece admin ise sil butonu -->
+        <div *ngIf="userIsAdmin">
+          <button mat-icon-button color="warn"
+                  [disabled]="deleteBusy === s.id"
+                  (click)="deleteSession(s.id)"
+                  aria-label="Seansı sil">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="gym">{{ s.gymName || ('Salon #' + (s.gymId ?? '-')) }}</div>
+
+      <div class="meta">
+        <div *ngIf="s.startTime && s.endTime; else noTime">
+          <mat-icon aria-hidden="true">schedule</mat-icon>
+          <span>{{ s.startTime | date:'short' }} – {{ s.endTime | date:'shortTime' }}</span>
+        </div>
+        <ng-template #noTime>
+          <mat-icon aria-hidden="true">schedule</mat-icon>
+          <span>Tarih/saat belirlenmemiş</span>
+        </ng-template>
+
+        <div>
+          <mat-icon aria-hidden="true">groups</mat-icon>
+          <span>Kontenjan: {{ s.capacity ?? '—' }}</span>
+        </div>
+      </div>
+
+      <p class="desc" *ngIf="s.description">{{ s.description }}</p>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="btn-primary"
+        [disabled]="bookingBusy === s.id || !s.gymId"
+        (click)="book(s.id)">
+        {{ bookingBusy === s.id ? 'İşleniyor…' : 'Rezerve Et' }}
+      </button>
+      <div *ngIf="!s.gymId" class="hint">Bu seansın gymId bilgisi gelmediği için buton pasif.</div>
+    </div>
+  </div>
+</div>

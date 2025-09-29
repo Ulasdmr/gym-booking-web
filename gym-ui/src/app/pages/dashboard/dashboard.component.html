@@ -1,0 +1,5 @@
+<div class="grid">
+  <mat-card routerLink="/sessions"><h3>Seansları Gör</h3><p>Uygun saatleri keşfet</p></mat-card>
+  <mat-card routerLink="/bookings/me"><h3>Rezervasyonlarım</h3><p>Durumunu takip et</p></mat-card>
+  <mat-card *ngIf="isAdmin" routerLink="/admin/sessions/create"><h3>Seans Yönetimi</h3><p>Oluştur/Düzenle</p></mat-card>
+</div>

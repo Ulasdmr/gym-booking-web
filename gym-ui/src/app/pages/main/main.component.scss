@@ -1,0 +1,78 @@
+/* Industrial Gym Dark — Main (ortalı & 1/6 genişlik) */
+:host { display: block; color: #e6e7e9; }
+
+$bg-900: #0f1113;
+$bg-800: #14171a;
+$bg-700: #1a1d20;
+$fg-200: #aeb4b9;
+$accent-600: #2f3438;
+$accent-500: #3a3f44;
+
+.main-wrap {
+  min-height: 100vh;
+  background: linear-gradient(180deg, $bg-900 0%, $bg-800 100%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* yatay ortala */
+  justify-content: center; /* dikey ortala */
+  padding: 24px;
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 800;
+  color: #eef0f2;
+}
+.subtitle { margin: 0 0 32px; color: $fg-200; }
+
+.grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tile {
+  background: $bg-700;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+
+  width: 36.6%;             /* sayfanın 1/6’sı */
+  min-width: 200px;         /* çok küçülmesin */
+  height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  transition: transform .15s ease, background .2s ease;
+}
+.tile:hover { background: $accent-500; transform: translateY(-4px); }
+
+.tile img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.tile-body { margin-bottom: 12px; }
+
+.btn {
+  background: $accent-600;
+  color: #e9ecef;
+}
+.btn:hover { background: $accent-500; }
+
+.actions {
+  margin-top: 32px;
+}
+.btn-secondary {
+  border-color: rgba(255,255,255,.22);
+  color: #e6e7e9;
+}

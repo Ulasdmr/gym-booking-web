@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <span class="brand">GymBooking</span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/">Dashboard</a>
+  <a mat-button routerLink="/gyms">Salonlar</a>
+  <a mat-button routerLink="/sessions">Seanslar</a>
+  <a mat-button routerLink="/bookings/me">Rezervasyonlarım</a>
+  <button mat-stroked-button color="accent" (click)="logout()">Çıkış</button>
+</mat-toolbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
