@@ -1,0 +1,19 @@
+# Backend (Spring Boot)
+gym/target/
+gym/.idea/
+gym/*.iml
+*.log
+*.class
+*.jar
+*.war
+*.ear
+
+# Frontend (Angular)
+gym-ui/node_modules/
+gym-ui/dist/
+gym-ui/.angular/cache/
+
+# Ortak
+.env
+.DS_Store
+npm-debug.log
